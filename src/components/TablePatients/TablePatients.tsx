@@ -7,14 +7,13 @@ import { InfiniteScroll } from "../InfiniteScroll/InfiniteScroll"
 import { ModalHandles} from '../../components/Modal/PatientModal';
 import { useTableContext } from "../../contexts/TableContext"
 
-
 import { useStyles } from "./TablePatients.style"
 
 
 export const TablePatients = () => {
   const classes = useStyles();
   const location = useLocation();
-  
+
   const {
     patients, 
     isActiveFilterString, 
@@ -97,21 +96,22 @@ export const TablePatients = () => {
                   {format(parseJSON(patient.dob.date), 'dd-MM-yyyy')}
                 </TableCell>
                 <TableCell align="center" className={classes.actions}>
-                  <Button 
-                    variant="contained"  
-                    disableElevation 
-                    className={classes.buttonShow}
-                    onClick={() => handleOpenModal(patient)}
+                  <Link 
+                    className={classes.link}
+                    to={{
+                      pathname: patient?.id?.value ? patient?.id?.value : "/ ",
+                      state: {background: location}
+                    }}
                   >
-                    <Link 
-                      to={{
-                        pathname: patient?.id?.value ? patient?.id?.value : "/ ",
-                        state: {background: location}
-                      }}
-
-                      className={classes.link}
-                    >show</Link>
-                  </Button>
+                    <Button 
+                      variant="contained"  
+                      disableElevation 
+                      className={classes.buttonShow}
+                      onClick={() => handleOpenModal(patient)}
+                    >
+                      show
+                    </Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             )

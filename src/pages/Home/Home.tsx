@@ -13,17 +13,25 @@ export const Home = () => {
     patients, 
     isActiveFilterString, 
     isActiveFilterGender, 
-    filterByString, 
+    filterByString,
+    filterByStringAndNat,
     handleIsActiveFilterString
   } = useTableContext()
-  
+
   const timeoutRef = useRef<any>(null)
   
-  function handleFilterByString(value: string) { 
+  function handleFilterByString(value: string) {
     clearTimeout(timeoutRef.current)
+    
+    const [str, nat] = value.trim().split(" ")
+
     timeoutRef.current = setTimeout(() => {
       handleIsActiveFilterString(true)
-      filterByString(value.trim())
+      if(nat){
+        filterByStringAndNat(str, nat)
+      }else{
+        filterByString(str)
+      }
     }, 500) 
   }
   

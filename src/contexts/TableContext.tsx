@@ -43,6 +43,7 @@ interface TableContextData{
   isActiveFilterGender: boolean
   loadingMore: () => void
   filterByString: (value: string) => void
+  filterByStringAndNat: (str: string, nat: string) => void
   handlePatientDetails: (patient: Object) => void
   getPatientByID: (id: string) => void
   getPatientByGender: (gender: string) => void
@@ -61,7 +62,7 @@ export const TableProvider: React.FC = ({children}) => {
   const [patientsFilteredByGender, setPatientsFilteredByGender] = useState<any[]>([])
   const [isActiveFilterString, setIsActiveFilterString] = useState(false)
   const [isActiveFilterGender, setIsActiveFilterGender] = useState(false)
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   
   useEffect(() => {    
     handleSearchPatients()
@@ -77,62 +78,34 @@ export const TableProvider: React.FC = ({children}) => {
   async function loadingMore() {  
     const {results, info} = await searchPatients(page+1)
     
-    setPatients([...patients, ...results])
-    setData([...patients, ...results])
+    setPatients([...data, ...results])
+    setData([...data, ...results])
     setPage(info.page)
   }
 
   function filterByString(value: string) {
-    const [str, nat] = value.split(" ")
-    
     if(value){
-      if(str && nat){
-        if(patientsFilteredByGender.length > 0){
-          const newList = patientsFilteredByGender.filter((patient) => {            
-            const name = patient.name.first
-            if(name.includes(str, 0) && patient.nat === nat){
-              return true
-            }else{
-              return false
-            }
-          })
-          setPatients(newList)
-        }else{
-          const newList = data.filter((patient) => {
-            
-            const name = patient.name.first
-            if(name.includes(str, 0) && patient.nat === nat){
-              return true
-            }else{
-              return false
-            }
-          })
-          setPatients(newList)
-          setPatientsFilteredByString(newList)
-        }
+      if(patientsFilteredByGender.length > 0){
+        const newList = patientsFilteredByGender.filter((patient) => {
+          const name = patient.name.first
+          if(name.includes(value, 0)){
+            return true
+          }else{
+            return false
+          }
+        })
+        setPatients(newList)
       }else{
-        if(patientsFilteredByGender.length > 0){
-          const newList = patientsFilteredByGender.filter((patient) => {
-            const name = patient.name.first
-            if(name.includes(value, 0)){
-              return true
-            }else{
-              return false
-            }
-          })
-          setPatients(newList)
-        }else{
-          const newList = data.filter((patient) => {
-            const name = patient.name.first
-            if(name.includes(value, 0)){
-              return true
-            }else{
-              return false
-            }
-          })
-          setPatients(newList)
-          setPatientsFilteredByString(newList)
-        }
+        const newList = data.filter((patient) => {
+          const name = patient.name.first
+          if(name.includes(value, 0)){
+            return true
+          }else{
+            return false
+          }
+        })
+        setPatients(newList)
+        setPatientsFilteredByString(newList)
       }
     }else{
       if(patientsFilteredByGender.length > 0){
@@ -144,6 +117,32 @@ export const TableProvider: React.FC = ({children}) => {
         setPatients(data)
         setPatientsFilteredByString([])
       }
+    }
+  }
+
+  function filterByStringAndNat(str: string, nat: string) {
+    if(patientsFilteredByGender.length > 0){
+      const newList = patientsFilteredByGender.filter((patient) => {            
+        const name = patient.name.first
+        if(name.includes(str, 0) && patient.nat === nat){
+          return true
+        }else{
+          return false
+        }
+      })
+      setPatients(newList)
+    }else{
+      const newList = data.filter((patient) => {
+        
+        const name = patient.name.first
+        if(name.includes(str, 0) && patient.nat === nat){
+          return true
+        }else{
+          return false
+        }
+      })
+      setPatients(newList)
+      setPatientsFilteredByString(newList)
     }
   }
 
@@ -209,7 +208,8 @@ export const TableProvider: React.FC = ({children}) => {
       isActiveFilterString,
       isActiveFilterGender,
       loadingMore, 
-      filterByString, 
+      filterByString,
+      filterByStringAndNat, 
       handlePatientDetails, 
       getPatientByID,
       getPatientByGender,

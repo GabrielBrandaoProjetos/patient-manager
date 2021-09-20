@@ -2,13 +2,12 @@ import { forwardRef, useState, useImperativeHandle, useEffect } from "react";
 import { Modal, Backdrop, Fade, Avatar, Typography } from "@material-ui/core";
 import { useTableContext } from "../../contexts/TableContext";
 import { format, parseJSON } from "date-fns"
-import { useHistory, useParams, Link } from "react-router-dom"
-import { useStyles } from "./PatientModal.style";
+import { useHistory, useParams } from "react-router-dom"
 
+import { useStyles } from "./PatientModal.style";
 export interface ModalHandles{
   openModal: () => void;
 }
-
 interface ModalParams{
   id: string;
 }
@@ -26,6 +25,7 @@ const PatientModal: React.ForwardRefRenderFunction<ModalHandles> = ({}, ref) => 
       openModal()
     }
   }, [patients])
+
 
   const openModal = () => {
     setOpen(true);

@@ -51,13 +51,13 @@ createStyles({
     padding: 0
   },
   link:{
-    color: "white",
     textDecoration: "none"
   },
   buttonShow: {
     padding: "4px 16px",
     textTransform: "none",
     background: "#0abab5",
+    color: "white",
   },
   loading: {
     display: "flex",
