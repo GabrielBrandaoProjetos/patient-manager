@@ -1,8 +1,8 @@
-# Patient Manager
+## Patient Manager
 
-## This app was developed to list and filter Pharma Inc patients, streamlining their management.
+This app was developed to list and filter Pharma Inc patients, streamlining their management.
 
-# Technologies
+### Technologies
 
 - ReactJS
 - HTML & CSS
@@ -12,11 +12,11 @@
 - Date-fns
 - Docker
 
-# Getting Started with Create React App
+### Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Installer and Runner
+### Installer and Runner
 
 Clone the project
 ### `git clone https://github.com/GabrielBrandaoProjetos/patient-manager.git`
