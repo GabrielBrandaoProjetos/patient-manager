@@ -1,0 +1,19 @@
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+
+export const useStyles = makeStyles((theme: Theme) =>
+createStyles({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background,
+    border: '2px solid #000',
+    borderRadius: '5px',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}),
+);

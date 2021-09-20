@@ -1,0 +1,3 @@
+FROM node:alpine
+
+WORKDIR C:\Users\Gabriel\Desktop\challenge
